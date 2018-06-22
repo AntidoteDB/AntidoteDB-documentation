@@ -13,7 +13,7 @@
 ## API
 
 * [Native API](api/native-api.md)
-* [Datatypes](api/datatypes.md)
+* [Datatypes in Antidote](api/datatypes.md)
 * [Protocol Buffer API](api/protocol-buffer-api.md)
 * [Commit Hooks](api/commit-hooks.md)
 
