@@ -181,9 +181,9 @@ public BoardId createBoard(AntidoteClient client, String name) {
 }
 ```
 
-In line 2, the generateId\(\) method returns a unique **BoardId** object for each **Board** object.
+In line 2, the `generatedId()`method returns a unique **BoardId** object for each **Board** object.
 
-The getId\(\) method returns the uniqueID as a String. Since several objects are modeled as a map, it makes sense to have a method that generates an AntidoteDB MapKey corresponding to the map. Consequently, we have the following method that substitutes `map_aw(board_id.getId())` on line 4.
+The `getId()`method returns the uniqueID as a String. Since several objects are modeled as a map, it makes sense to have a method that generates an AntidoteDB MapKey corresponding to the map. Consequently, we have the following method that substitutes `map_aw(board_id.getId())` on line 4.
 
 ```java
 public MapKey boardMap(BoardId board_id) {
