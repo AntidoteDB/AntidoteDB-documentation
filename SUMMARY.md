@@ -8,4 +8,5 @@
 * [Architecture](overview/architecture.md)
 * [Support](overview/support.md)
 * [Installation](installation.md)
+* [Configuration](configuration.md)
 
