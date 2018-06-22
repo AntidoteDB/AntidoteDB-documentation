@@ -45,7 +45,7 @@ Clock = term_to_binary(ignore),
 
 * Update objects
 
-`update_objects(Pid::term(), Updates::[{term(), term(), term()}], TxId::term()) -> ok | {error, term()}` takes a set of object with the operations and corresponding parameters as list of triples. More on data types and operations can be found here.
+`update_objects(Pid::term(), Updates::[{term(), term(), term()}], TxId::term()) -> ok | {error, term()}` takes a set of object with the operations and corresponding parameters as list of triples. More on data types and operations can be found [here](https://antidotedb.gitbook.io/documentation/api/protocol-buffer-api#pb_datatypes).
 
 _Example_
 
