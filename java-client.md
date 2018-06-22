@@ -197,7 +197,7 @@ In order to reference the object in AntidoteDB, there is an an Antidote Key whic
 MapKey boardKey = boardMap(board_id);
 ```
 
-Also, register\(“name”\) in line 4 is replaced with namefield so that it constraints the type to `RegisterKey<String>`
+Also, `register(“name”)` in line 4 is replaced with `namefield` so that it constraints the type to `RegisterKey<String>`
 
 ```java
 private static final RegisterKey<String> namefield = register("Name");
@@ -214,7 +214,7 @@ public BoardId createBoard(AntidoteClient client, String name) {
 }
 ```
 
-The update on boardKey creates an update operation to update CRDTs embedded inside the boardMap. The createboard method returns a unique id which can later be passed as an argument for the renameBoard method. Since the namefield is a register data type, `assign` is called to update the value.
+The update on `boardKey` creates an update operation to update CRDTs embedded inside the `boardMap`. The `createboard` method returns a unique id which can later be passed as an argument for the `renameBoard` method. Since the `namefield` is a register data type, `assign` is called to update the value.
 
 ```java
 public void renameBoard(AntidoteClient
@@ -225,7 +225,7 @@ public void renameBoard(AntidoteClient
 
 ### Reading from Antidote {#reading-from-antidote}
 
-A Bucket has a read method that retrieves the current value of an object from database. MapReadResult presents the result of a read request on a Map CRDT. The entire object is read from database and individual fields can be obtained using get methods as illustrated by the following code:
+A Bucket has a read method that retrieves the current value of an object from database. `MapReadResult` presents the result of a read request on a Map CRDT. The entire object is read from database and individual fields can be obtained using get methods as illustrated by the following code:
 
 ```java
 MapKey boardKey = boardMap(board_id);
@@ -238,7 +238,7 @@ List<ColumnId> columnid_list = boardmap.get(columnidfield);
 
 The class `InteractiveTransaction` allows a client to execute multiple update and read before committing the transaction. It constitutes of a sequence of operations performed as a single logical unit. If the client has to perform a single update or read operation, the `NoTransaction` can be used to execute an individual operation without any transactional context.
 
-The `moveTask` method deletes a task from one column and adds it to another column. It takes ColumnId of the new column and TaskId as arguments. `InteractiveTransaction` is called to ensure that the reads and updates are performed as a single unit. InteractiveTransaction guarantees that either the entire sequence of operation executes or none of them do. Hence we avoid the case in which the operation to delete a task from one column is performed but the operation to add a task to another is not.
+The `moveTask` method deletes a task from one column and adds it to another column. It takes `ColumnId` of the new column and `TaskId` as arguments. `InteractiveTransaction` is called to ensure that the reads and updates are performed as a single unit. `InteractiveTransaction` guarantees that either the entire sequence of operation executes or none of them do. Hence we avoid the case in which the operation to delete a task from one column is performed but the operation to add a task to another is not.
 
 ```java
 public void moveTask(AntidoteClient client, TaskId task_id, ColumnId newcolumn_id) {
@@ -255,5 +255,5 @@ public void moveTask(AntidoteClient client, TaskId task_id, ColumnId newcolumn_i
 }
 ```
 
-Line 3 starts the transaction. The read method on the columnbucket in line 4 takes the transactional context `tx` created in line 1 as its first argument and reads the old ColumnId. In lines 5 and 7, **MapKey** oldcolumnKey and newcolumnKey are used to update the contents of the **Map CRDT** columnMap \(similar to boardMap\) in the database. Line 6 removes the Task Id from the oldcolumnKey and line 8 adds the TaskId to newcolumnKey. On line 10, the transaction is committed by calling `commitTransaction`.
+Line 3 starts the transaction. The read method on the `columnbucket` in line 4 takes the transactional context `tx` created in line 1 as its first argument and reads the old `ColumnId`. In lines 5 and 7, **`MapKey`** `oldcolumnKey` and `newcolumnKey` are used to update the contents of the **Map CRDT** `columnMap` \(similar to `boardMap`\) in the database. Line 6 removes the Task Id from the `oldcolumnKey` and line 8 adds the `TaskId` to `newcolumnKey`. On line 10, the transaction is committed by calling `commitTransaction`.
 
