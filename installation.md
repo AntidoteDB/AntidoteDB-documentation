@@ -109,5 +109,19 @@ CounterObj = {my_counter, antidote_crdt_counter_pn, my_bucket}.
 
  More about the API is described [here](https://syncfree.github.io/antidote/rawapi.html).
 
+###  Running Tests
 
+#### Run all tests {#run-all-tests}
+
+```bash
+make systests
+```
+
+#### Running specific tests {#running-specific-tests}
+
+ Tests are located in `$ANTIDOTE/test/`
+
+```bash
+make systests SUITE=xxx_SUITE
+```
 
