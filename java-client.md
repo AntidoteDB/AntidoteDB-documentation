@@ -74,24 +74,76 @@ renameboard board_id newnamet1
 
  Rename the same board to a different name using terminal 2.
 
-```text
+```bash
 renameboard board_id newnamet2
 ```
 
  Run getboard command on both terminals, the outputs are as follows
 
+{% tabs %}
+{% tab title="Terminal 1:" %}
+```bash
+Board Name - newnamet1
+List of Column Ids - []
+List of Columns - []
+```
+{% endtab %}
+
+{% tab title="Terminal 2:" %}
+```bash
+Board Name - newnamet2
+List of Column Ids - []
+List of Columns - []
+```
+{% endtab %}
+{% endtabs %}
+
+Run the connect script to re-connect and sync up both the replicas! Antidote gets conflicting updates and tries to resolve them using the CRDT datatypes.
+
+```bash
+./connect.sh
+```
+
+The output of getboard command for both terminals is now:
+
+```bash
+Board Name - newnamet2
+List of Column Ids - []
+List of Columns - []
+```
+
+The renameboard operation on terminal 2 was performed after the renameboard operation on terminal 1. Since the boardname is stored in a last writer wins register, the latter operation gets preference while resolving the conflict.
+
+### Application Requirements {#application-requirements}
+
+The collaborative todo list application can be used by multiple users concurrently. It constitutes a board that serves as a workspace for adding tasks to be performed.
+
+![](https://syncfree.github.io/antidote/images/app.png)
+
+Each of the columns on the board can have one or more than one task. A task has information such as title and its due date.
+
+### Data Modelling in Antidote {#data-modelling-in-antidote}
+
+For modelling a complex data type with different fields we use a map datatype. The different fields can be register datatype in case of a single entity and set datatype in case of a list.
+
+The **Board** object is a map with a unique board id that returns relevant information about the board using the getboard method. The Java **UUID** class that generates universally unique identifiers is used to get unique IDs for the application. Each **Board** object has a name and a list of column ids associated with it.
+
+```bash
+Boards
+  ┗━━━ BoardId
+          ┣━━━ name: Register<String>
+          ┗━━━ columns: Set<ColumnId>
+```
+
+Similar to the **Board**, the **Column** object is a map with column id as the key. The unique column id returns fields related to a particular column such as name, tasks inside the column and board\_id associated with the column. To give preference to the latest update, the column name and board id are of type last writer wins register. The tasks field is a Set.
+
 ```text
-
+Columns
+  ┗━━━ ColumnId
+          ┣━━━ name: Register<String>
+          ┣━━━ tasks: Set<TaskId>
+          ┗━━━ board_id: Register<BoardId>
 ```
 
-{% hint style="info" %}
- Super-powers are granted randomly so please submit an issue if you're not happy with yours.
-{% endhint %}
-
-```
-// Ain't no code for that yet, sorry
-echo 'You got to trust me on this, I saved the world'
-```
-
-
+Each **Column** object has one or more **Task** objects. **Task** object is modelled as a map with task id as the unique key. The fields of a **Task** object consists of title, due date and the column id associated with the task.
 
