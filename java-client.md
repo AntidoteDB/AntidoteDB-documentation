@@ -77,7 +77,7 @@ renameboard board_id newnamet2
  Run getboard command on both terminals, the outputs are as follows
 
 {% tabs %}
-{% tab title="Terminal 1:" %}
+{% tab title="Terminal 1" %}
 ```bash
 Board Name - newnamet1
 List of Column Ids - []
@@ -85,7 +85,7 @@ List of Columns - []
 ```
 {% endtab %}
 
-{% tab title="Terminal 2:" %}
+{% tab title="Terminal 2" %}
 ```bash
 Board Name - newnamet2
 List of Column Ids - []
