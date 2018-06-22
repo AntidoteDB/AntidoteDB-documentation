@@ -137,7 +137,7 @@ Boards
 
 Similar to the **Board**, the **Column** object is a map with column id as the key. The unique column id returns fields related to a particular column such as name, tasks inside the column and board\_id associated with the column. To give preference to the latest update, the column name and board id are of type last writer wins register. The tasks field is a Set.
 
-```text
+```bash
 Columns
   ┗━━━ ColumnId
           ┣━━━ name: Register<String>
@@ -146,4 +146,57 @@ Columns
 ```
 
 Each **Column** object has one or more **Task** objects. **Task** object is modelled as a map with task id as the unique key. The fields of a **Task** object consists of title, due date and the column id associated with the task.
+
+```bash
+Tasks
+  ┗━━━ TaskId
+          ┣━━━ title: Register<String>
+          ┣━━━ due_date: Register<Date>
+          ┗━━━ column_id: Register<ColumnId>
+```
+
+### Updating objects in Antidote
+
+In Antidote, each object is stored in a Bucket. To create a bucket use the static bucket method:
+
+```java
+Bucket boardbucket = Bucket.bucket("board_bucket");
+```
+
+Objects in the AntidoteDB are addressed using a Key. To execute the update operation on a bucket, `Bucket.update` method is called. For performing several updates simultaneously, the `Bucket.updates` methods can be used. The update method takes a transactional context as the first argument. If the client has to perform a single update or read operation, `NoTransaction` can be used to execute an individual operation without any transactional context. The second argument of update method is an AntidoteDB Key which is explained in detail later in the section.
+
+The code below illustrates a method to create a board in the application and rename it.
+
+```java
+public BoardId createBoard(AntidoteClient client, String name) {
+  BoardId board_id = BoardId.generateId();                                                      //(1)
+  boardbucket.update(client.noTransaction(),
+                     map_aw(board_id.getId().update(register("name").assign(name))));           //(2)
+  return board_id;
+}
+```
+
+In line 1, the generateId\(\) method returns a unique **BoardId** object for each **Board** object.
+
+The getId\(\) method returns the uniqueID as a String. Since several objects are modeled as a map, it makes sense to have a method that generates an AntidoteDB MapKey corresponding to the map. Consequently, we have the following method that substitutes `map_aw(board_id.getId())` on line 2.
+
+```java
+public MapKey boardMap(BoardId board_id) {
+  return map_aw(board_id.getId());
+}
+```
+
+In order to reference the object in AntidoteDB, there is an an Antidote Key which consists of a CRDT type and the corresponding uniqueID key. It can be used as a top-level-key of an Antidote object in a bucket. The **MapKey** boardKey is used to update the contents of the **Map CRDT** boardMap in the database.
+
+```java
+MapKey boardKey = boardMap(board_id);
+```
+
+Also, register\(“name”\) in line 3 is replaced with namefield so that it constraints the type to `RegisterKey<String>`
+
+```java
+private static final RegisterKey<String> namefield = register("Name");
+```
+
+
 
