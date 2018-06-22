@@ -72,3 +72,42 @@ make console
 
 **Writing**
 
+ Perform a write operation \(example\):
+
+```erlang
+CounterObj = {my_counter, antidote_crdt_counter_pn, my_bucket}.
+{ok, TxId} = antidote:start_transaction(ignore, []).
+ok = antidote:update_objects([{CounterObj, increment, 1}], TxId).
+{ok, _CommitTime} = antidote:commit_transaction(TxId).
+```
+
+ You can also update objects with a single call as follows:
+
+```erlang
+CounterObj = {my_counter, antidote_crdt_counter_pn, my_bucket}.
+{ok, _CommitTime} = antidote:update_objects(ignore, [], [{CounterObj, increment, 1}]).
+```
+
+**Reading**
+
+ Perform a read operation \(example\):
+
+```erlang
+CounterObj = {my_counter, antidote_crdt_counter_pn, my_bucket}.
+{ok, TxId} = antidote:start_transaction(ignore, []).
+{ok, [CounterVal]} = antidote:read_objects([CounterObj], TxId).
+{ok, _CommitTime3} = antidote:commit_transaction(TxId).
+```
+
+ Or in a single call:
+
+```erlang
+CounterObj = {my_counter, antidote_crdt_counter_pn, my_bucket}.
+{ok, Res, _CommitTime} = antidote:read_objects(ignore, [], [CounterObj]).
+[CounterVal] = Res.
+```
+
+ More about the API is described [here](https://syncfree.github.io/antidote/rawapi.html).
+
+
+
