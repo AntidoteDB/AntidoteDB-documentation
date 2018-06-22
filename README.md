@@ -1,7 +1,3 @@
----
-description: This guide will walk you through the core features of AntidoteDB.
----
-
 # Quick Start Guide
 
 We will use Docker to run AntidoteDB nodes. Please refer to the [complete installation guide](http://syncfree.github.io/antidote/setup.html) if you wish to build the nodes from source.

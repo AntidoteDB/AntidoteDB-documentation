@@ -1,7 +1,3 @@
----
-description: This document gives an overview of the architecture.
----
-
 # Architecture
 
 To provide fast parallel access to different data, data is sharded among the servers within a cluster using consistent hashing and organized in a ring. A read/write request is served by the server hosting a copy of the data. A transaction that reads/ writes multiple objects contacts only those servers that have the objects accessed by the transaction. This master-less design allows serving of requests even when some servers fail.

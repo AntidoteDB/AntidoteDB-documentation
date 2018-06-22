@@ -7,5 +7,5 @@
 
 * [Architecture](overview/architecture.md)
 * [Support](overview/support.md)
-* [Installation](installation.md)
+* [Installation](overview/installation.md)
 

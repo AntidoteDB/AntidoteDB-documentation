@@ -12,7 +12,7 @@ description: Getting started with Antidote.
 
 ### Starting a local node {#starting-a-local-node}
 
- Start a local node with the command:
+Start a local node with the command:
 
 ```bash
 docker run -d --name antidote -p "8087:8087" antidotedb/antidote
@@ -41,9 +41,9 @@ You can clone it to your machine via
 git clone git@github.com:SyncFree/antidote.git
 ```
 
-####  Building a single node cluster
+#### Building a single node cluster
 
- Antidote uses rebar3 for building releases.
+Antidote uses rebar3 for building releases.
 
 ```bash
 make rel
@@ -58,7 +58,7 @@ Eshell V5.10.3  (abort with ^G)
 (antidote@127.0.0.1)1>
 ```
 
- Type `Ctrl-g` and `q` to quit the shell and stop the node.
+Type `Ctrl-g` and `q` to quit the shell and stop the node.
 
 #### Reading from and writing to a CRDT object stored in antidote: {#reading-from-and-writing-to-a-crdt-object-stored-in-antidote}
 
@@ -70,11 +70,5 @@ Start a node \(if you haven’t done it yet\):
 make console
 ```
 
-
-
-
-
-
-
-
+**Writing**
 

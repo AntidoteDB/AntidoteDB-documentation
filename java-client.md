@@ -1,7 +1,3 @@
----
-description: The tutorial serves as a guide for different client interfaces of Antidote.
----
-
 # Java Client
 
 As a running example, we use a collaborative editing application where multiple users can concurrently update a shared todo list. We discuss how Antidote handles conflicting updates by multiple users based on its CRDT data model.
@@ -118,6 +114,15 @@ The renameboard operation on terminal 2 was performed after the renameboard oper
 
 The collaborative todo list application can be used by multiple users concurrently. It constitutes a board that serves as a workspace for adding tasks to be performed.
 
+```text
+public BoardId createBoard(AntidoteClient client, String name) {
+  BoardId board_id = BoardId.generateId();                                                       //(1)
+  MapKey boardKey = boardMap(board_id);                                                          //(2)       
+  boardbucket.update(client.noTransaction(), boardKey.update(namefield.assign(name)));           //(3)
+  return board_id;
+}
+```
+
 ![](https://syncfree.github.io/antidote/images/app.png)
 
 Each of the columns on the board can have one or more than one task. A task has information such as title and its due date.
@@ -169,16 +174,16 @@ The code below illustrates a method to create a board in the application and ren
 
 ```java
 public BoardId createBoard(AntidoteClient client, String name) {
-  BoardId board_id = BoardId.generateId();                                                      //(1)
+  BoardId board_id = BoardId.generateId();                                                      
   boardbucket.update(client.noTransaction(),
-                     map_aw(board_id.getId().update(register("name").assign(name))));           //(2)
+                     map_aw(board_id.getId().update(register("name").assign(name))));           
   return board_id;
 }
 ```
 
-In line 1, the generateId\(\) method returns a unique **BoardId** object for each **Board** object.
+In line 2, the generateId\(\) method returns a unique **BoardId** object for each **Board** object.
 
-The getId\(\) method returns the uniqueID as a String. Since several objects are modeled as a map, it makes sense to have a method that generates an AntidoteDB MapKey corresponding to the map. Consequently, we have the following method that substitutes `map_aw(board_id.getId())` on line 2.
+The getId\(\) method returns the uniqueID as a String. Since several objects are modeled as a map, it makes sense to have a method that generates an AntidoteDB MapKey corresponding to the map. Consequently, we have the following method that substitutes `map_aw(board_id.getId())` on line 4.
 
 ```java
 public MapKey boardMap(BoardId board_id) {
@@ -192,11 +197,63 @@ In order to reference the object in AntidoteDB, there is an an Antidote Key whic
 MapKey boardKey = boardMap(board_id);
 ```
 
-Also, register\(“name”\) in line 3 is replaced with namefield so that it constraints the type to `RegisterKey<String>`
+Also, register\(“name”\) in line 4 is replaced with namefield so that it constraints the type to `RegisterKey<String>`
 
 ```java
 private static final RegisterKey<String> namefield = register("Name");
 ```
 
+The code fragments above make the modified createBoard method more readable.
 
+```java
+public BoardId createBoard(AntidoteClient client, String name) {
+  BoardId board_id = BoardId.generateId();                                                       
+  MapKey boardKey = boardMap(board_id);                                                                
+  boardbucket.update(client.noTransaction(), boardKey.update(namefield.assign(name)));         
+  return board_id;
+}
+```
+
+The update on boardKey creates an update operation to update CRDTs embedded inside the boardMap. The createboard method returns a unique id which can later be passed as an argument for the renameBoard method. Since the namefield is a register data type, `assign` is called to update the value.
+
+```java
+public void renameBoard(AntidoteClient
+  client, BoardId board_id , String newName) {
+  MapKey boardKey = boardMap(board_id);  cbucket.update(client.noTransaction(), boardKey.update(namefield.assign(newName)));
+}
+```
+
+### Reading from Antidote {#reading-from-antidote}
+
+A Bucket has a read method that retrieves the current value of an object from database. MapReadResult presents the result of a read request on a Map CRDT. The entire object is read from database and individual fields can be obtained using get methods as illustrated by the following code:
+
+```java
+MapKey boardKey = boardMap(board_id);
+MapReadResult boardmap = boardbucket.read(client.noTransaction(), boardKey);
+String boardname = boardmap.get(namefield);
+List<ColumnId> columnid_list = boardmap.get(columnidfield);
+```
+
+### Transactions {#transactions}
+
+The class `InteractiveTransaction` allows a client to execute multiple update and read before committing the transaction. It constitutes of a sequence of operations performed as a single logical unit. If the client has to perform a single update or read operation, the `NoTransaction` can be used to execute an individual operation without any transactional context.
+
+The `moveTask` method deletes a task from one column and adds it to another column. It takes ColumnId of the new column and TaskId as arguments. `InteractiveTransaction` is called to ensure that the reads and updates are performed as a single unit. InteractiveTransaction guarantees that either the entire sequence of operation executes or none of them do. Hence we avoid the case in which the operation to delete a task from one column is performed but the operation to add a task to another is not.
+
+```java
+public void moveTask(AntidoteClient client, TaskId task_id, ColumnId newcolumn_id) {
+    MapKey task = taskMap(task_id);
+    try (InteractiveTransaction tx = client.startTransaction()) {                             
+	ColumnId oldcolumn_id = columnbucket.read(tx, columnidfield);                         
+	MapKey oldcolumnKey = new Column().columnMap(oldcolumn_id);                           
+	columnbucket.update(tx, oldcolumnKey.update(Column.taskidfield.remove(task_id)));     
+	MapKey newcolumnKey = new Column().columnMap(newcolumn_id);                          
+	columnbucket.update(tx, newcolumnKey.update(Column.taskidfield.add(task_id)));        
+        taskbucket.update(client.noTransaction(),task.update(columnidfield.assign(newcolumn_id)));
+	tx.commitTransaction();                                                               
+    }
+}
+```
+
+Line 3 starts the transaction. The read method on the columnbucket in line 4 takes the transactional context `tx` created in line 1 as its first argument and reads the old ColumnId. In lines 5 and 7, **MapKey** oldcolumnKey and newcolumnKey are used to update the contents of the **Map CRDT** columnMap \(similar to boardMap\) in the database. Line 6 removes the Task Id from the oldcolumnKey and line 8 adds the TaskId to newcolumnKey. On line 10, the transaction is committed by calling `commitTransaction`.
 
