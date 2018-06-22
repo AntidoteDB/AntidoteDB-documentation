@@ -6,4 +6,5 @@
 ## Overview
 
 * [Architecture](overview/architecture.md)
+* [Support](overview/support.md)
 
