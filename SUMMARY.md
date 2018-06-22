@@ -1,4 +1,4 @@
 # Table of contents
 
-* [What is AntidoteDB?](README.md)
+* [Quick Start Guide](README.md)
 
