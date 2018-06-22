@@ -1,14 +1,16 @@
 ---
-description: >-
-  This guide will walk you through the core features of AntidoteDB. We will use
-  Docker to run AntidoteDB nodes.
+description: 'A planet-scale, available, transactional database with strong semantics'
 ---
 
-# Quick Start Guide
+# What is AntidoteDB?
 
-### Requirements {#requirements}
+* Your cloud-scale application must be highly available?
+* You need to serve millions of customers around the world with low latency responses?
+* You are tired of fixing inconsistencies in your key-value store?
 
-Install the latest version of Docker \([Installation Guide](https://docs.docker.com/engine/installation/)\);
+```text
+{%youtube%}oWUNCsFy-r0{%endyoutube%}
+```
 
 ### Create a cluster {#create-a-cluster}
 
