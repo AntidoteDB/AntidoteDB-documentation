@@ -16,4 +16,5 @@
 * [Datatypes in Antidote](api/datatypes.md)
 * [Protocol Buffer API](api/protocol-buffer-api.md)
 * [Commit Hooks](api/commit-hooks.md)
+* [Release Notes 0.0.1](api/release-notes-0.0.1.md)
 
