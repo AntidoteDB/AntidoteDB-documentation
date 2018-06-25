@@ -1,6 +1,8 @@
 # Quick Start Guide
 
-We will use Docker to run AntidoteDB nodes. Please refer to the [complete installation guide](http://syncfree.github.io/antidote/setup.html) if you wish to build the nodes from source.
+We will use Docker to run AntidoteDB nodes. Please refer to the complete installation guide below if you wish to build the nodes from source:
+
+{% page-ref page="installation.md" %}
 
  In this guide, you will accomplish the following steps:
 
