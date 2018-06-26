@@ -4,7 +4,9 @@ description: This page describes the native Erlang API of Antidote.
 
 # Native API
 
-Clients can invoke these functions via RPC. A more convenient but restricted way for client applications to interact with Antidote is the [protocol buffer interface](https://antidotedb.gitbook.io/documentation/api/protocol-buffer-api).
+Clients can invoke these functions via RPC. A more convenient but restricted way for client applications to interact with Antidote is the protocol buffer interface:
+
+{% page-ref page="protocol-buffer-api.md" %}
 
 ### CRDTs {#crdts}
 
