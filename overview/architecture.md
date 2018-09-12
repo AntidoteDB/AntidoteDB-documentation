@@ -10,7 +10,7 @@ For example, in a social networking application a wall post has happened before 
 
 Cure also allows applications to pack reads and writes to multiple objects in a transaction. The transactions together with causal consistency helps to read and update more than one object in a consistent manner.
 
-![](https://syncfree.github.io/antidote/images/architecture.png)
+![](../images/architecture.png)
 
  Each partition in AntidoteDB mainly consists of the following four components:
 

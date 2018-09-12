@@ -40,7 +40,7 @@ connect antidote2 8087
 
  We now have an AntidoteDB cluster with two replicas!
 
-![](https://syncfree.github.io/antidote/images/replicas.jpeg)
+![](images/replicas.jpeg)
 
 ### Running the Application
 
@@ -123,7 +123,7 @@ public BoardId createBoard(AntidoteClient client, String name) {
 }
 ```
 
-![](https://syncfree.github.io/antidote/images/app.png)
+![](images/app.png)
 
 Each of the columns on the board can have one or more than one task. A task has information such as title and its due date.
 
