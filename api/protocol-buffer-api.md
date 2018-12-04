@@ -1,3 +1,7 @@
+---
+description: Here we describe the Erlang client for Antidote’s protocol buffer interface.
+---
+
 # Protocol Buffer API
 
 {% hint style="info" %}
