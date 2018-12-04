@@ -1,3 +1,7 @@
+---
+description: This page describes the native Erlang API of Antidote.
+---
+
 # Native API
 
 Clients can invoke these functions via RPC. A more convenient but restricted way for client applications to interact with Antidote is the protocol buffer interface:
