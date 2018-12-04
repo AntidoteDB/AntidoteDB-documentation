@@ -1,5 +1,7 @@
 # Commit Hooks
 
+Commit hooks are executed when an object is updated in Antidote. Pre-Commit hooks are execute before the object is updated and post-commit hooks after the update is executed successfully.
+
 Commit hooks are erlang functions which can be called with in Antidote. A commit hook function must take one argument of type`update_object()` and returns `update_object()`.
 
 ```erlang
