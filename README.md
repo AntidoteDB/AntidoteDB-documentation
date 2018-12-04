@@ -2,7 +2,7 @@
 
 We will use Docker to run AntidoteDB nodes. Please refer to the complete installation guide below if you wish to build the nodes from source:
 
-{% page-ref page="installation.md" %}
+{% page-ref page="overview/installation.md" %}
 
  In this guide, you will accomplish the following steps:
 
@@ -10,11 +10,11 @@ We will use Docker to run AntidoteDB nodes. Please refer to the complete install
 * Start and commit a transaction;
 * Use the Bounded Counter data type.
 
-### Requirements {#requirements}
+### Requirements <a id="requirements"></a>
 
 * Install the latest version of Docker \([Installation Guide](https://docs.docker.com/engine/installation/)\).
 
-### Create a cluster {#create-a-cluster}
+### Create a cluster <a id="create-a-cluster"></a>
 
 > If you prefer to skip the steps to build the cluster manually, there is a Docker Compose file available at: https://github.com/mweberUKL/antidote\_dev/tree/master/docker\_dcs.
 
@@ -73,7 +73,7 @@ docker exec -it antidote2 /opt/antidote/bin/env attach
 docker-compose exec antidote1 /opt/antidote/bin/env attach
 ```
 
-### Interacting with AntidoteDB {#interacting-with-antidotedb}
+### Interacting with AntidoteDB <a id="interacting-with-antidotedb"></a>
 
 Start a new transaction and increment the value of a bounded counter. By default, if the counter does not exist, one is created automatically.
 

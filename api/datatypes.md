@@ -18,7 +18,7 @@ The initial value is the empty binary.
 
 * **assign\(value\):** Assigns a value to the register.
 
-### Multi-value Register \(MV-Register\) {#multi-value-register-mv-register}
+### Multi-value Register \(MV-Register\) <a id="multi-value-register-mv-register"></a>
 
 Reading a Multi-value Register \(MV-Register\) returns a list of all concurrently assigned values, which have not been overridden by other assignments. The returned list is ordered by the lexicographic order on the byte representation of the value.
 
@@ -40,7 +40,7 @@ The counter datatype only allows incrementing and decrementing the value. Readin
 * **increment\(v\):** Increments the counter by `v`.
 * **decrement\(v\):** Decrements the counter by `v`.
 
-#### Fat Counter {#fat-counter}
+#### Fat Counter <a id="fat-counter"></a>
 
 The fat counter offers the same functionality as the counter above but additionally supports the `reset` operation, which is useful for embedding the counter in a map datatype.
 
@@ -72,7 +72,7 @@ More precisely, the result of reading the value can be specified as follows:
 * **set\(v\):** Sets the value of the integer to `v`.
 * **reset\(\):** Same as `set(0)`. This is not a standard implementation of `reset` since it might affect concurrent updates and does not reset the internal state to the initial state.
 
-### Flags {#flags}
+### Flags <a id="flags"></a>
 
 Flags store a Boolean value \(`true` or `false`\).
 
@@ -90,7 +90,7 @@ Here “latest operations” are all operations which have not been overridden b
 * **disable\(\):** Sets the flag to `false`.
 * **reset\(\):** Resets the flag to the initial state \(`false`\).
 
-### Maps {#maps}
+### Maps <a id="maps"></a>
 
 Maps in Antidote can store values under keys. The keys are simple \(binary\) values. Values are again datatypes and updating nested values is done by sending operations to these embedded values. Similarly, reading a value reads all the embedded values and returns them with their respective key.
 
@@ -108,7 +108,7 @@ All implementations have in common, that they call `reset` on the removed value.
 
 The grow-only map does not support removing entries. It can be used for representing objects/structs in Antidote, where fields are not dynamically added and removed.
 
-#### Add-wins Map \(AW-Map\) {#add-wins-map-aw-map}
+#### Add-wins Map \(AW-Map\) <a id="add-wins-map-aw-map"></a>
 
 A `remove` on an add-wins map resets the embedded datatype by calling its reset operation. Moreover, it marks the entry as removed, so that it does not show up when reading the value of the map.
 
@@ -116,7 +116,7 @@ Concurrent updates on a key will overwrite the removed-marker \(i.e. adds via up
 
 The drawback of this implementation is, that markers for removed elements might never be cleaned up, so it should only be used when the set of keys is limited.
 
-#### Remove-Resets Map \(RR-Map\) {#remove-resets-map-rr-map}
+#### Remove-Resets Map \(RR-Map\) <a id="remove-resets-map-rr-map"></a>
 
 Similar to the add-wins map, calling `remove` on a remove-resets map resets the embedded datatype by calling its reset operation.
 
@@ -136,11 +136,11 @@ Reading a set returns the values in the set ordered by the lexicographic order o
 * **remove\(element\) / remove\_all\(elements\):** Removes elements from the set.
 * **reset\(\):** Resets the set.
 
-#### Grow-only Set \(G-Set\) {#grow-only-set-g-set}
+#### Grow-only Set \(G-Set\) <a id="grow-only-set-g-set"></a>
 
 The grow-only set does not support removing elements or resetting the state. Reading it simply returns all elements added to the set.
 
-#### Add-wins Set \(AW-Set / OR-Set\) {#add-wins-set-aw-set--or-set}
+#### Add-wins Set \(AW-Set / OR-Set\) <a id="add-wins-set-aw-set--or-set"></a>
 
 In the add-wins set \(also called observed-remove set\), add-operations win over concurrent remove-operations. A remove-operation will only “overwrite” the add-operations that happened before it.
 
@@ -148,7 +148,7 @@ More precisely, an element is in the set, if there is an add-operation for the e
 
 A reset-operation has the effect of removing all preceeding operations.
 
-#### Remove-wins Set \(RW-Set\) {#remove-wins-set-rw-set}
+#### Remove-wins Set \(RW-Set\) <a id="remove-wins-set-rw-set"></a>
 
 In the remove-wins set, remove-operations win over concurrent add-operations. Here, an add-operation overwrites only the remove-operations that happened before it.
 

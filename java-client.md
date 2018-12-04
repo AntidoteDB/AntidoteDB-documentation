@@ -2,19 +2,19 @@
 
 As a running example, we use a collaborative editing application where multiple users can concurrently update a shared todo list. We discuss how Antidote handles conflicting updates by multiple users based on its CRDT data model.
 
-### Requirements
+## Requirements
 
 * Build AntidoteDB using [Docker ](https://docs.docker.com/install/)
 * Clone the [Todolist application](https://github.com/shraddhabarke/antidote-todolist) from github and follow the setup instructions from [README](https://github.com/shraddhabarke/antidote-todolist/blob/master/README.md)
 
- In this tutorial, you will learn the following concepts:
+  In this tutorial, you will learn the following concepts:
 
-* Model data of Java application in AntidoteDB 
+* Model data of Java application in AntidoteDB
 * Update and read CRDT objects in AntidoteDB 
 * Run two AntidoteDB nodes concurrently 
 * Test the behavior of CRDT objects under concurrent access.
 
-### Connecting to AntidoteDB
+## Connecting to AntidoteDB
 
 Before getting into the details of data modelling of the application in Antidote, we look at how to run the application commands on top of Antidote. We start two AntidoteDB node instances and run two separate application instances on top of each node. This enables us to see how Antidote tackles inconsistencies arising due to concurrent updates in different replicas.
 
@@ -24,25 +24,25 @@ Start two antidote node instances using the start\_antidote script in setup fold
 ./start_antidote.sh
 ```
 
- In two separate terminals, start two application instances on the antidote nodes:
+In two separate terminals, start two application instances on the antidote nodes:
 
 ```bash
 ./app1.sh
 ./app2.sh
 ```
 
- Now connect to antidote on each of the terminal:
+Now connect to antidote on each of the terminal:
 
 ```bash
 connect antidote1 8087
 connect antidote2 8087
 ```
 
- We now have an AntidoteDB cluster with two replicas!
+We now have an AntidoteDB cluster with two replicas!
 
-![](images/replicas.jpeg)
+![](.gitbook/assets/replicas.jpeg)
 
-### Running the Application
+## Running the Application
 
 The application commands for interacting with Antidote can be found in the application README
 
@@ -68,13 +68,13 @@ Rename the board previously created, replacing board\_id in the command with the
 renameboard board_id newnamet1
 ```
 
- Rename the same board to a different name using terminal 2.
+Rename the same board to a different name using terminal 2.
 
 ```bash
 renameboard board_id newnamet2
 ```
 
- Run getboard command on both terminals, the outputs are as follows
+Run getboard command on both terminals, the outputs are as follows
 
 {% tabs %}
 {% tab title="Terminal 1" %}
@@ -110,7 +110,7 @@ List of Columns - []
 
 The renameboard operation on terminal 2 was performed after the renameboard operation on terminal 1. Since the boardname is stored in a last writer wins register, the latter operation gets preference while resolving the conflict.
 
-### Application Requirements {#application-requirements}
+## Application Requirements <a id="application-requirements"></a>
 
 The collaborative todo list application can be used by multiple users concurrently. It constitutes a board that serves as a workspace for adding tasks to be performed.
 
@@ -123,11 +123,11 @@ public BoardId createBoard(AntidoteClient client, String name) {
 }
 ```
 
-![](images/app.png)
+![](.gitbook/assets/app.png)
 
 Each of the columns on the board can have one or more than one task. A task has information such as title and its due date.
 
-### Data Modelling in Antidote {#data-modelling-in-antidote}
+## Data Modelling in Antidote <a id="data-modelling-in-antidote"></a>
 
 For modelling a complex data type with different fields we use a map datatype. The different fields can be register datatype in case of a single entity and set datatype in case of a list.
 
@@ -160,7 +160,7 @@ Tasks
           ┗━━━ column_id: Register<ColumnId>
 ```
 
-### Updating objects in Antidote
+## Updating objects in Antidote
 
 In Antidote, each object is stored in a Bucket. To create a bucket use the static bucket method:
 
@@ -223,7 +223,7 @@ public void renameBoard(AntidoteClient
 }
 ```
 
-### Reading from Antidote {#reading-from-antidote}
+## Reading from Antidote <a id="reading-from-antidote"></a>
 
 A Bucket has a read method that retrieves the current value of an object from database. `MapReadResult` presents the result of a read request on a Map CRDT. The entire object is read from database and individual fields can be obtained using get methods as illustrated by the following code:
 
@@ -234,7 +234,7 @@ String boardname = boardmap.get(namefield);
 List<ColumnId> columnid_list = boardmap.get(columnidfield);
 ```
 
-### Transactions {#transactions}
+## Transactions <a id="transactions"></a>
 
 The class `InteractiveTransaction` allows a client to execute multiple update and read before committing the transaction. It constitutes of a sequence of operations performed as a single logical unit. If the client has to perform a single update or read operation, the `NoTransaction` can be used to execute an individual operation without any transactional context.
 
@@ -244,16 +244,16 @@ The `moveTask` method deletes a task from one column and adds it to another colu
 public void moveTask(AntidoteClient client, TaskId task_id, ColumnId newcolumn_id) {
     MapKey task = taskMap(task_id);
     try (InteractiveTransaction tx = client.startTransaction()) {                             
-	ColumnId oldcolumn_id = columnbucket.read(tx, columnidfield);                         
-	MapKey oldcolumnKey = new Column().columnMap(oldcolumn_id);                           
-	columnbucket.update(tx, oldcolumnKey.update(Column.taskidfield.remove(task_id)));     
-	MapKey newcolumnKey = new Column().columnMap(newcolumn_id);                          
-	columnbucket.update(tx, newcolumnKey.update(Column.taskidfield.add(task_id)));        
+    ColumnId oldcolumn_id = columnbucket.read(tx, columnidfield);                         
+    MapKey oldcolumnKey = new Column().columnMap(oldcolumn_id);                           
+    columnbucket.update(tx, oldcolumnKey.update(Column.taskidfield.remove(task_id)));     
+    MapKey newcolumnKey = new Column().columnMap(newcolumn_id);                          
+    columnbucket.update(tx, newcolumnKey.update(Column.taskidfield.add(task_id)));        
         taskbucket.update(client.noTransaction(),task.update(columnidfield.assign(newcolumn_id)));
-	tx.commitTransaction();                                                               
+    tx.commitTransaction();                                                               
     }
 }
 ```
 
-Line 3 starts the transaction. The read method on the `columnbucket` in line 4 takes the transactional context `tx` created in line 1 as its first argument and reads the old `ColumnId`. In lines 5 and 7, **`MapKey`** `oldcolumnKey` and `newcolumnKey` are used to update the contents of the **Map CRDT** `columnMap` \(similar to `boardMap`\) in the database. Line 6 removes the Task Id from the `oldcolumnKey` and line 8 adds the `TaskId` to `newcolumnKey`. On line 10, the transaction is committed by calling `commitTransaction`.
+Line 3 starts the transaction. The read method on the `columnbucket` in line 4 takes the transactional context `tx` created in line 1 as its first argument and reads the old `ColumnId`. In lines 5 and 7, `MapKey` `oldcolumnKey` and `newcolumnKey` are used to update the contents of the **Map CRDT** `columnMap` \(similar to `boardMap`\) in the database. Line 6 removes the Task Id from the `oldcolumnKey` and line 8 adds the `TaskId` to `newcolumnKey`. On line 10, the transaction is committed by calling `commitTransaction`.
 

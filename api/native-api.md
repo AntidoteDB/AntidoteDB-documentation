@@ -1,14 +1,10 @@
----
-description: This page describes the native Erlang API of Antidote.
----
-
 # Native API
 
 Clients can invoke these functions via RPC. A more convenient but restricted way for client applications to interact with Antidote is the protocol buffer interface:
 
 {% page-ref page="protocol-buffer-api.md" %}
 
-### CRDTs {#crdts}
+### CRDTs <a id="crdts"></a>
 
 Antidote provides a library of CRDTs. The interface of these CRDTs specify the operations and the parameters that can be used for inspection and modification of shared objects. In the following, we specify the supported `{operation(), op_param()}` pair for each of the supported CRDTs. The first element in the tuple specifies the update operation, and the second item indicates the corresponding parameters.
 
@@ -71,7 +67,7 @@ antidote\_crdt\_rga
 {remove, non_neg_integer()}
 ```
 
-### Transactions {#transactions}
+### Transactions <a id="transactions"></a>
 
 A unit of operation in Antidote is a transaction. A client should first start a transaction, then read and/or update several objects, and finally commit the transaction.
 
@@ -110,7 +106,7 @@ ok = rpc:call(Node, antidote, update_objects, [[{CounterObj, increment, 1}], TxI
 {ok, TxId2} = rpc:call(Node, antidote, start_transaction, [CT, []]),
 ```
 
-#### Static transactions {#static-transactions}
+#### Static transactions <a id="static-transactions"></a>
 
 Static transactions consist of a single bulk operation. There are two different types:
 
@@ -142,7 +138,7 @@ SetObj = {my_set, antidote_crdt_set_aw, my_bucket},
 [CounterVal, SetVal] = Result.
 ```
 
-### Cluster management {#cluster-management}
+### Cluster management <a id="cluster-management"></a>
 
 An Antidote data center \(DC\) is a cluster of multiple antidote nodes. Antidote deployment can have multiple DCs where each DCs is a full replica. The cluster management API provides functions to create DCs and connect them.
 

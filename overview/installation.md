@@ -4,13 +4,13 @@ description: Getting started with Antidote.
 
 # Installation
 
-## Quickstart with Docker {#quickstart-with-docker}
+## Quickstart with Docker <a id="quickstart-with-docker"></a>
 
-### Prerequisites {#prerequisites}
+### Prerequisites <a id="prerequisites"></a>
 
 * Working recent version of Docker \(1.12 and up recommended\)
 
-### Starting a local node {#starting-a-local-node}
+### Starting a local node <a id="starting-a-local-node"></a>
 
 Start a local node with the command:
 
@@ -24,9 +24,9 @@ Wait until Antidote is ready. The current log can be inspected with `docker logs
 
 Antidote should now be running on port 8087 on localhost.
 
-## Building Antidote releases {#building-antidote-releases}
+## Building Antidote releases <a id="building-antidote-releases"></a>
 
-#### Prerequisites {#prerequisites-1}
+#### Prerequisites <a id="prerequisites-1"></a>
 
 * An UNIX-like OS
 * Erlang 18.3 or later
@@ -60,7 +60,7 @@ Eshell V5.10.3  (abort with ^G)
 
 Type `Ctrl-g` and `q` to quit the shell and stop the node.
 
-#### Reading from and writing to a CRDT object stored in antidote: {#reading-from-and-writing-to-a-crdt-object-stored-in-antidote}
+#### Reading from and writing to a CRDT object stored in antidote: <a id="reading-from-and-writing-to-a-crdt-object-stored-in-antidote"></a>
 
 Antidote can store and manage different [crdts](https://github.com/SyncFree/antidote_crdt). Here we see how to update and read a counter.
 
@@ -111,13 +111,13 @@ CounterObj = {my_counter, antidote_crdt_counter_pn, my_bucket}.
 
 ###  Running Tests
 
-#### Run all tests {#run-all-tests}
+#### Run all tests <a id="run-all-tests"></a>
 
 ```bash
 make systests
 ```
 
-#### Running specific tests {#running-specific-tests}
+#### Running specific tests <a id="running-specific-tests"></a>
 
  Tests are located in `$ANTIDOTE/test/`
 

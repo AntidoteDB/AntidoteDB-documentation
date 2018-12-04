@@ -1,10 +1,3 @@
----
-description: >-
-  Clients can interact with the Antidote data store using a protocol buffer
-  interface. Here we describe the Erlang client for Antidote’s protocol buffer
-  interface.
----
-
 # Protocol Buffer API
 
 {% hint style="info" %}
@@ -15,13 +8,13 @@ description: >-
 **Note:** If you want to use this interface, you need to add [antidote\_pb](https://github.com/SyncFree/antidote_pb) to your application’s rebar dependencies.
 {% endhint %}
 
-### Transactions {#transactions}
+### Transactions <a id="transactions"></a>
 
 A unit of operation in Antidote is a transaction. A client should first start a transaction, then read and/or update multiple objects, and finally commit the transaction.
 
 All transaction functions take as first parameter the process identifier \(pid\) of the local Antidote proxy. Calling `antidotec_pb_socket:start(?ADDRESS, ?PORT)` starts this proxy and returns its pid.
 
-#### Start a transaction {#start-a-transaction}
+#### Start a transaction <a id="start-a-transaction"></a>
 
 `start_transaction(Pid::term(), Timestamp::term(), TxnProperties::term()) -> {ok, TxnId::term()} | {error, Reason::term()}`
 
@@ -37,7 +30,7 @@ Clock = term_to_binary(ignore),
 {ok, TxId} = antidotec_pb:start_transaction(Pid, Clock, [{static=true}]). 
 ```
 
-#### Reading and updating objects {#reading-and-updating-objects}
+#### Reading and updating objects <a id="reading-and-updating-objects"></a>
 
 * Reading objects
 
@@ -65,7 +58,7 @@ _Example_
  Value = antidotec_counter:value(Val1). %% assuming Obj1 is of type counter
 ```
 
-#### Finalizing a transaction {#finalizing-a-transaction}
+#### Finalizing a transaction <a id="finalizing-a-transaction"></a>
 
 `commit_transaction(Pid::term(), TxId::term()}) -> {ok, term()} | {error, term()}`
 
@@ -101,11 +94,11 @@ ok = antidotec_pb:update_objects(Pid, antidotec_counter:to_ops(Counter2, LocalOb
 _Disconnected = antidotec_pb_socket:stop(Pid),
 ```
 
-### Data Types {#pb_datatypes}
+### Data Types <a id="pb_datatypes"></a>
 
  Antidote supports several replicated data types \(more information at [antidote\_crdts](https://github.com/SyncFree/antidote_crdt)\). However, the protocol buffer interface currently supports only counters and sets.
 
-#### Counter {#counter}
+#### Counter <a id="counter"></a>
 
 The client side representation of replicated counter `antidote_counter` provides the following interface:
 
@@ -115,7 +108,7 @@ The client side representation of replicated counter `antidote_counter` provides
 * `to_ops(term(), antidotec_counter()) -> [term()]` converts the local operations to right format for sending it to Antidote via `antidotec_pb:update_object/3`.
 * `value(antidotec_counter()) -> integer()` returns an integer representing the current local value of the counter.
 
-#### Set {#set}
+#### Set <a id="set"></a>
 
 Similar to the counter, we have a client side representation of an replicated OR-set. The `antidotec_set` provides following interface:
 

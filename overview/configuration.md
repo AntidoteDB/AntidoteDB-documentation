@@ -1,15 +1,11 @@
----
-description: >-
-  Antidote can be configured to use different transaction protocols and recovery
-  strategies.
----
-
 # Configuration
 
-### Options for environmental variables {#options-for-environmental-variables}
+ Antidote can be configured to use different transaction protocols and recovery strategies.
+
+### Options for environmental variables <a id="options-for-environmental-variables"></a>
 
 | Parameter | Value | Description |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| :--- | :--- | :--- |
 | txn\_cert | true | Write operations are certified during commit. The transaction is aborted if a write conflict is detected \(i.e. snapshot isolation is ensured for the updates within a single DC, updates across DCs are not checked\) \(default\). |
 |  | false | Transactions perform no certification check and always commit \(if they do not crash\). |
 | txn\_prot   | clocksi | Uses the [Cure protocol](https://pages.lip6.fr/Marc.Shapiro/papers/Cure-final-ICDCS16.pdf) to define snapshots and causal dependencies \(default\). |

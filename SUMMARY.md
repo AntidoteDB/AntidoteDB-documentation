@@ -7,8 +7,8 @@
 
 * [Architecture](overview/architecture.md)
 * [Support](overview/support.md)
-* [Installation](installation.md)
-* [Configuration](configuration.md)
+* [Installation](overview/installation.md)
+* [Configuration](overview/configuration.md)
 
 ## API
 

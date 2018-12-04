@@ -1,10 +1,3 @@
----
-description: >-
-  Commit hooks are executed when an object is updated in Antidote. Pre-Commit
-  hooks are execute before the object is updated and post-commit hooks after the
-  update is executed successfully.
----
-
 # Commit Hooks
 
 Commit hooks are erlang functions which can be called with in Antidote. A commit hook function must take one argument of type`update_object()` and returns `update_object()`.
@@ -17,7 +10,7 @@ fun (update_object()) -> {ok, update_object()} | {error, Reason}.
 
  Commit hooks can be registered per bucket.
 
-### Pre-Commit hooks {#pre-commit-hooks}
+### Pre-Commit hooks <a id="pre-commit-hooks"></a>
 
 Pre-commit hooks are executed before an object is being updated. If pre-commit hook fails, the entire transaction is aborted.
 
@@ -30,7 +23,7 @@ my_increment_hook({ {Key, Bucket}, antidote_crdt_counter_pn, {increment, 1} }) -
 {ok, { {Key, Bucket}, antidote_crdt_counter_pn, {increment, 2} }}.
 ```
 
-### Post-commit hooks {#post-commit-hooks}
+### Post-commit hooks <a id="post-commit-hooks"></a>
 
 Post commit hooks are executed after the transaction is successfully committed and before the reply is sent to the client. Currently if post commit hook is failed, it is ignored and transaction is still considered to be successfully committed.
 
@@ -50,7 +43,7 @@ _Result = antidote:update_objects(ignore, [],
 
 Note that if post commit hook update objects, it may trigger more hooks and result in infinite cycles of hooks execution. Therefore, hook functions should be carefully written.
 
-### Registering Commit hooks {#registering-commit-hooks}
+### Registering Commit hooks <a id="registering-commit-hooks"></a>
 
 A commit hook is registered per bucket. A bucket can have any number of pre and post commit hooks. However, the order of execution of these hooks \(if more than one exist\) cannot be specified.
 
