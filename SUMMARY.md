@@ -9,6 +9,7 @@
 * [Support](overview/support.md)
 * [Installation](overview/installation.md)
 * [Configuration](overview/configuration.md)
+* [Caches and logs](overview/caches-and-logs.md)
 
 ## API
 
