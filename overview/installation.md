@@ -8,7 +8,7 @@ description: Getting started with Antidote.
 
 ### Prerequisites <a id="prerequisites"></a>
 
-* Working recent version of Docker \(1.12 and up recommended\)
+* Working recent version of [Docker](https://docs.docker.com/install/) \(1.12 and up recommended\)
 
 ### Starting a local node <a id="starting-a-local-node"></a>
 
@@ -33,12 +33,12 @@ Antidote should now be running on port 8087 on localhost.
 
 #### Getting Antidote
 
-The source code is available open-source at [Github](https://github.com/SyncFree/antidote).
+The source code is available open-source at [Github](https://github.com/AntidoteDB/antidote).
 
 You can clone it to your machine via
 
 ```text
-git clone git@github.com:SyncFree/antidote.git
+git clone git@github.com:AntidoteDB/antidote.git
 ```
 
 #### Building a single node cluster
@@ -62,7 +62,7 @@ Type `Ctrl-g` and `q` to quit the shell and stop the node.
 
 #### Reading from and writing to a CRDT object stored in antidote: <a id="reading-from-and-writing-to-a-crdt-object-stored-in-antidote"></a>
 
-Antidote can store and manage different [crdts](https://github.com/SyncFree/antidote_crdt). Here we see how to update and read a counter.
+Antidote can store and manage different [crdts](https://github.com/AntidoteDB/antidote_crdt). Here we see how to update and read a counter.
 
 Start a node \(if you haven’t done it yet\):
 
@@ -107,7 +107,9 @@ CounterObj = {my_counter, antidote_crdt_counter_pn, my_bucket}.
 [CounterVal] = Res.
 ```
 
- More about the API is described [here](https://syncfree.github.io/antidote/rawapi.html).
+ More about the API is described here :
+  
+ {% page-ref page="api/native-api.md" %}
 
 ###  Running Tests
 

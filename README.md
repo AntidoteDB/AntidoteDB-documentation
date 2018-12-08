@@ -122,5 +122,5 @@ antidote:commit_transaction(TxId1).
 # output: {ok, ...}
 ```
 
-Look at the documentation to see more examples of AntidoteDB in action. We are working on new features for AntidoteDB, contact us at info@antidotedb.com if you want to know more.
+Look at the documentation to see more examples of AntidoteDB in action. We are working on new features for AntidoteDB, contact us at [info@antidotedb.com](mailto:info@antidotedb.com) if you want to know more.
 

@@ -9,7 +9,7 @@ description: Here we describe the Erlang client for Antidote’s protocol buffer
 {% endhint %}
 
 {% hint style="info" %}
-**Note:** If you want to use this interface, you need to add [antidote\_pb](https://github.com/SyncFree/antidote_pb) to your application’s rebar dependencies.
+**Note:** If you want to use this interface, you need to add [antidote\_pb](https://github.com/AntidoteDB/antidote_pb) to your application’s rebar dependencies.
 {% endhint %}
 
 ### Transactions <a id="transactions"></a>
