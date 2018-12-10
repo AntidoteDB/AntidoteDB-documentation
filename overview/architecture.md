@@ -16,7 +16,9 @@ Each partition in AntidoteDB mainly consists of the following four components:
 
 ## Log
 
-This module implements a log-based persistent layer. Updates are stored in a log, which is persisted to disk for durability. The module also internally maintains a cache layer in order to make accesses to the log faster. Further details can be found [here](https://syncfree.github.io/antidote/log.html).
+This module implements a log-based persistent layer. Updates are stored in a log, which is persisted to disk for durability. The module also internally maintains a cache layer in order to make accesses to the log faster. For further details :
+
+{% page-ref page="overview/caches-and-logs.md" %
 
 ## Materializer
 

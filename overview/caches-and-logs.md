@@ -8,7 +8,7 @@ Logs and caches will be explained using two scripts `cache_dump.erl` and `log_du
 
 #### General
 
-[Antidote](https://github.com/SyncFree/antidote)
+[Antidote](https://github.com/AntidoteDB/antidote)
 
 [Erlang Remote Procedure Calls](http://erlang.org/doc/man/rpc.html) All of the interaction with Antidote is executed via RPC calls
 
