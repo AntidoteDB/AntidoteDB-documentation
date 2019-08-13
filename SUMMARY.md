@@ -11,6 +11,7 @@
 * [Configuration](overview/configuration.md)
 * [Monitoring](overview/monitoring.md)
 * [Caches and logs](overview/caches-and-logs.md)
+* [Cluster Setup](overview/cluster-setup.md)
 
 ## API
 
