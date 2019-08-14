@@ -17,3 +17,14 @@ One data center (**DC1**) is fully dockerized, on the other one (**DC2**) we are
 Finally, we monitor the two data centers with a Grafana dashboard specially tailored for monitoring Antidote clusters.
 
 
+## Dockerized Data Center **DC1**
+
+We want to connect three Antidote nodes together. 
+The resulting setup should look like this:
+
+![](../images/cluster-setup-docker-dc.png)
+
+There are multiple ways of instantiating Antidote docker nodes. 
+We choose a `docker-compose` file configured to create a 3-nodes data center on the same physical machine.
+
+
