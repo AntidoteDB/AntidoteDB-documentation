@@ -52,7 +52,7 @@ make rel
 Rebar3 will now pull all the dependencies it needs from Github, and build the application, and make an Erlang “release” of a single node. If all went well \(if it didn’t, contact us at [info@antidotedb.com](mailto:info@antidotedb.com)\), then you should be able to start a node:
 
 ```erlang
-15:55:05:antidote $ make console
+15:55:05:antidote $ make shell
 (elided)
 Eshell V5.10.3  (abort with ^G)
 (antidote@127.0.0.1)1>
@@ -67,7 +67,7 @@ Antidote can store and manage different [crdts](https://github.com/AntidoteDB/an
 Start a node \(if you haven’t done it yet\):
 
 ```bash
-make console
+make shell
 ```
 
 **Writing**
@@ -112,6 +112,18 @@ CounterObj = {my_counter, antidote_crdt_counter_pn, my_bucket}.
  {% page-ref page="api/native-api.md" %}
 
 ###  Running Tests
+
+#### Run only single dc tests <a id="run-single-dc-tests"></a>
+
+```bash
+make singledc
+```
+
+#### Run only multi dc tests <a id="run-multi-dc-tests"></a>
+
+```bash
+make multidc
+```
 
 #### Run all tests <a id="run-all-tests"></a>
 
