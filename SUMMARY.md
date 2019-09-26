@@ -9,6 +9,7 @@
 * [Support](overview/support.md)
 * [Installation](overview/installation.md)
 * [Configuration](overview/configuration.md)
+* [Docker](overview/docker.md)
 * [Monitoring](overview/monitoring.md)
 * [Caches and logs](overview/caches-and-logs.md)
 
