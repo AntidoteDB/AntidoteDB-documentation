@@ -1,6 +1,6 @@
 # Monitoring Antidote with Prometheus
 
-Antidote is configured to expose metrics to [Prometheus](https://prometheus.io/).
+Antidote is configured to expose metrics to [Prometheus](https://prometheus.io/) via the [`antidote_stats` module](https://github.com/AntidoteDB/antidote_stats).
 At present, the metrics collected are operations per second, open transactions, staleness, aborted transactions and errors together with several virtual machine metrics.
 
 Follow the steps to start one Antidote node and view the metrics.
@@ -37,3 +37,18 @@ To view the monitoring data of antidote, go to Dashboard and open Antidote from 
 
 To shutdown containers:
 `docker-compose down`
+
+
+
+
+# Adding Metrics to Antidote
+
+To add a metric collection call to the Antidote source code, use the macro `?STATS(term)`, where `term` is the term to send to the stat collector process.
+The actual Prometheus processing is done in the `antidote_stats` module and every term should be implemented there.
+Unknown terms which are not yet supported are logged as warnings during runtime.
+
+When implementing new metrics in the `antidote_stats` repository, it is useful to work on and implement features locally.
+In the main `antidote` folder, create a folder named `_checkouts`. 
+Create a symbolic link to the checked out `antidote_stats` repository in that folder.
+This overrides the `antidote_stats` dependency with the local one, allowing the treatment of the two different projects as a single unified project.
+See the [checkouts](https://www.rebar3.org/docs/dependencies#section-checkout-dependencies) section of `rebar3`.
