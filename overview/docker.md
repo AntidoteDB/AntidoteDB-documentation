@@ -69,6 +69,28 @@ You can connect to the console of a local node typing the following:
 docker exec -it antidote /opt/antidote/bin/env attach
 ```
 
+## Build a local node from the source code
+For dev reasons, you may need to build a container from your current local Antidote code.
+
+From the Antidote.git root directory, use the following command to build the node 
+```
+make docker-build
+```
+
+Then you can run it using:
+```
+docker run -d --name antidote -p "8087:8087" antidotedb:local-build
+```
+or:
+```
+make docker-run
+```
+
+To remove de Docker image, you can use:
+```
+make docker-clean
+```
+
 ## Quick reference
 
 - **AntidoteDB**: [Official website][AntidoteDB-website], [Quick start guide](https://antidotedb.gitbook.io/documentation/) or [The AntidoteDB Community Slack](https://antidotedb.slack.com/).
