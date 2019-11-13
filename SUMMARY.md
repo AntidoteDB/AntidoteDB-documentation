@@ -13,12 +13,31 @@
 * [Monitoring](overview/monitoring.md)
 * [Caches and logs](overview/caches-and-logs.md)
 
-## API
+## Deployment
 
-* [Native API](api/native-api.md)
+## Deployment
+
+* [Natively (Linux)](deployment/native.md)
+* [Local Docker Setup](deployment/docker.md)
+* [Docker Swarm](deployment/dockerswarm.md)
+* [Kubernetes](deployment/kubernetes.md)
+
+## Protocol Buffer API
+
 * [Datatypes in Antidote](api/datatypes.md)
 * [Protocol Buffer API](api/protocol-buffer-api.md)
 * [Commit Hooks](api/commit-hooks.md)
+
+## Client API
+
+* [Native (Erlang)](clients/native.md)
+* [Erlang](clients/erlang.md)
+* [Java](clients/java.md)
+* [JavaScript](clients/javascript.md)
+* [Go](clients/go.md)
+* [Python](clients/python.md)
+
+
 
 ## Release Notes
 
