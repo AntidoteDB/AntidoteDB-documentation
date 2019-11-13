@@ -4,5 +4,4 @@
  **Summary:**  First official version.
 {% endhint %}
 
- TODO: Release notes
-
+First working version of Antidote.

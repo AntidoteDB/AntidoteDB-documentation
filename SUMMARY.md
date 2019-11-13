@@ -1,19 +1,25 @@
 # Table of contents
 
-* [Quick Start Guide](README.md)
-* [Java Client](java-client.md)
+* [Overview](README.md)
+* [Examples & Applications](examples/README.md)
+    * [Calendar App]()
+    * [Antidote Web Shell]()
+    * [Timeseries Load Generator]()
 
-## Overview
 
-* [Architecture](overview/architecture.md)
-* [Support](overview/support.md)
-* [Installation](overview/installation.md)
-* [Configuration](overview/configuration.md)
-* [Docker](overview/docker.md)
-* [Monitoring](overview/monitoring.md)
-* [Caches and logs](overview/caches-and-logs.md)
+## Applications & Examples 
 
-## Deployment
+
+## Architecture
+
+* [Overview](architecture/overview.md)
+* [Ring](architecture/ring.md)
+* [Log](architecture/log.md)
+* [Materializer](architecture/materializer.md)
+* [Transaction Manager](architecture/transaction-manager.md)
+* [Inter-DC Communication](architecture/inter-dc-communication.md)
+* [Failure Modes](architecture/failure-modes.md)
+
 
 ## Deployment
 
@@ -22,11 +28,13 @@
 * [Docker Swarm](deployment/dockerswarm.md)
 * [Kubernetes](deployment/kubernetes.md)
 
+
 ## Protocol Buffer API
 
 * [Datatypes in Antidote](api/datatypes.md)
 * [Protocol Buffer API](api/protocol-buffer-api.md)
 * [Commit Hooks](api/commit-hooks.md)
+
 
 ## Client API
 
@@ -38,8 +46,16 @@
 * [Python](clients/python.md)
 
 
+## Development
+
+* [Setup & Environment](development/setup.md)
+* [Testing](development/testing.md)
+* [Contributing](development/contributing.md)
+
 
 ## Release Notes
 
-* [Release Notes 0.0.1](release-notes/release-notes-0.0.1.md)
+* [0.2.1](release-notes/release-notes-0.2.1.md)
+* [0.1.1](release-notes/release-notes-0.1.1.md)
+* [0.0.1](release-notes/release-notes-0.0.1.md)
 
