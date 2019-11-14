@@ -1,13 +1,5 @@
 # Java Client
 
-## Connecting to Antidote
+The repository can be found [here](https://github.com/AntidoteDB/antidote-java-client).
 
-## Using Transactions
-
-### Interactive Transactions
-
-### Static Transactions
-
-## Supported Data Types
-
-## Transaction Hooks
+The javadoc documentation can be found [here](https://www.javadoc.io/doc/eu.antidotedb/antidote-java-client/latest/index.html).

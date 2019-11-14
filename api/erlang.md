@@ -1,13 +1,5 @@
 # Erlang Client
 
-## Connecting to Antidote
+The repository can be found [here](https://github.com/AntidoteDB/antidote-erlang-client).
 
-## Using Transactions
-
-### Interactive Transactions
-
-### Static Transactions
-
-## Supported Data Types
-
-## Transaction Hooks
+The repository can be found [here](https://antidotedb.gitbook.io/documentation/api/protocol-buffer-api) and [here](https://github.com/AntidoteDB/antidote-erlang-client).

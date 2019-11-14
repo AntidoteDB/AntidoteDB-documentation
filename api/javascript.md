@@ -1,13 +1,5 @@
 # JavaScript Client
 
-## Connecting to Antidote
+The repository can be found [here](https://github.com/AntidoteDB/antidote_ts_client).
 
-## Using Transactions
-
-### Interactive Transactions
-
-### Static Transactions
-
-## Supported Data Types
-
-## Transaction Hooks
+The documentation can be found [here](https://antidotedb.github.io/antidote_ts_client/).

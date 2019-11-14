@@ -23,6 +23,7 @@
 * [Failure Modes](architecture/failure-modes.md)
 * [Datatypes in Antidote](architecture/datatypes.md)
 * [Commit Hooks](architecture/commit-hooks.md)
+* [Features Configuration](architecture/configuration.md)
 
 
 ## Deployment

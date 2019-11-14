@@ -1,13 +1,5 @@
 # Python Client
 
-## Connecting to Antidote
+The repository can be found [here](https://github.com/AntidoteDB/antidote-python-client).
 
-## Using Transactions
-
-### Interactive Transactions
-
-### Static Transactions
-
-## Supported Data Types
-
-## Transaction Hooks
+The documentation can be found [here](https://github.com/AntidoteDB/antidote-python-client#antidote-python-client).
