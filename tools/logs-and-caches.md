@@ -256,8 +256,6 @@ $ cache_dump.erl 'antidote@127.0.0.1', "./dump_dir/"
 
 ### Logs
 
-#### Internal log structure
-
 #### Logs in storage
 
 **Structure**

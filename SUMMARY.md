@@ -21,31 +21,32 @@
 * [Transaction Manager](architecture/transaction-manager.md)
 * [Inter-DC Communication](architecture/inter-dc-communication.md)
 * [Failure Modes](architecture/failure-modes.md)
+* [Datatypes in Antidote](architecture/datatypes.md)
+* [Commit Hooks](architecture/commit-hooks.md)
 
 
 ## Deployment
 
 * [Natively (Linux)](deployment/native.md)
 * [Local Docker Setup](deployment/docker.md)
+* [Docker Compose Setups](deployment/docker-compose-setups.md)
 * [Docker Swarm](deployment/dockerswarm.md)
 * [Kubernetes](deployment/kubernetes.md)
 
+## Monitoring
 
-## Protocol Buffer API
+* [Prometheus and Grafana](monitoring/README.md)
 
-* [Datatypes in Antidote](api/datatypes.md)
+
+## API
+
+* [Native (Erlang)](api/native.md)
 * [Protocol Buffer API](api/protocol-buffer-api.md)
-* [Commit Hooks](api/commit-hooks.md)
-
-
-## Client API
-
-* [Native (Erlang)](clients/native.md)
-* [Erlang](clients/erlang.md)
-* [Java](clients/java.md)
-* [JavaScript](clients/javascript.md)
-* [Go](clients/go.md)
-* [Python](clients/python.md)
+* [Erlang](api/erlang.md)
+* [Java](api/java.md)
+* [JavaScript](api/javascript.md)
+* [Go](api/go.md)
+* [Python](api/python.md)
 
 
 ## Benchmarking
@@ -62,6 +63,7 @@
 ## Development
 
 * [Setup & Environment](development/setup.md)
+* [Building a Release](development/building-a-release.md)
 * [Testing](development/testing.md)
 * [Contributing](development/contributing.md)
 

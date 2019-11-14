@@ -2,6 +2,13 @@
 
 For each vnode in the ring, there exists one log file.
 
+Currently the log is used for 3 things:
+
+*  Loading the state of objects into the materialiser on restart (done by replaying the log).
+*  Resending lost updates to external DCs.
+*  Reading an older version of an object than what is available in memory.
+
+
 Each log entry is defined by the following records:
 
 ```erlang
@@ -51,3 +58,5 @@ Each log entry is defined by the following records:
     local :: undefined | non_neg_integer()
 }).
 ```
+
+![](../.gitbook/assets/struct_log.png)
