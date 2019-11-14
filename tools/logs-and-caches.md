@@ -2,7 +2,7 @@
 
 ## Intro
 
-Logs and caches will be explained using two scripts `cache_dump.erl` and `log_dump.erl`, both available [here](https://github.com/lplit/antidote-tools/tree/master/tables_dump).
+Logs and caches can be extracted using two scripts `cache_dump.erl` and `log_dump.erl`, both available [here](https://github.com/lplit/antidote-tools/tree/master/tables_dump).
 
 ### Dependencies
 
@@ -252,6 +252,7 @@ Assuming an Antidote instance is running at localhost `127.0.0.1`, registered un
 ```bash
 $ cache_dump.erl 'antidote@127.0.0.1', "./dump_dir/"
 ```
+
 
 ### Logs
 

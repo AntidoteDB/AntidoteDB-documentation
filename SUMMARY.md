@@ -1,12 +1,15 @@
 # Table of contents
 
 * [Overview](README.md)
+* [Quickstart](quickstart.md)
 * Examples & Applications
     * [Timeseries Load Generator](examples/README.md)
     * [Antidote Web Shell](examples/README.md)
     * [Calendar App](examples/README.md)
+    * [Todo List App](examples/README.md)
 * Tutorials
-    * [Java Tutorial](tutorials/README.md)
+    * [Java Tutorial](tutorials/java-client.md)
+* [Related Projects](related-projects.md)
 
 
 ## Architecture
@@ -43,6 +46,17 @@
 * [JavaScript](clients/javascript.md)
 * [Go](clients/go.md)
 * [Python](clients/python.md)
+
+
+## Benchmarking
+
+* [Setup](benchmarking/setup.md)
+* [Basho Bench](benchmarking/basho_bench.md)
+
+
+## Tools
+
+* [Logs and Cache Dump](tools/logs-and-caches.md)
 
 
 ## Development

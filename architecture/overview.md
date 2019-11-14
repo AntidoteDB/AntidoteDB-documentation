@@ -1,4 +1,4 @@
-# Architecture
+# Overview
 
 To provide fast parallel access to different data, data is sharded among the servers within a cluster using consistent hashing and organized in a ring. 
 A read/write request is served by the server hosting a copy of the data. 
@@ -20,7 +20,7 @@ The transactions together with causal consistency helps to read and update more 
 
 ![](../.gitbook/assets/architecture.png)
 
-Each partition in AntidoteDB consists of the following four components:
+Each partition in AntidoteDB consists of the following four components. For more details visit the sub-section named after the components.
 
 
 ## Log
@@ -28,9 +28,6 @@ Each partition in AntidoteDB consists of the following four components:
 This module implements a log-based persistent layer. 
 Updates are stored in a log, which is persisted to disk for durability. 
 The module also internally maintains a cache layer in order to make accesses to the log faster. 
-For further details :
-
-{% page-ref page="overview/caches-and-logs.md" %}
 
 
 ## Materializer

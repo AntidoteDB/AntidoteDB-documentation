@@ -1,5 +1,5 @@
 ---
-description: The tutorial serves as a guide for different client interfaces of Antidote.
+description: The tutorial serves as a guide for the java interface of Antidote.
 ---
 
 # Java Client
@@ -8,11 +8,8 @@ As a running example, we use a collaborative editing application where multiple 
 
 ## Requirements
 
-* Build AntidoteDB using [Docker ](https://docs.docker.com/install/)
-* Clone the [Todolist application](https://github.com/shraddhabarke/antidote-todolist) from github and follow the setup instructions from [README](https://github.com/shraddhabarke/antidote-todolist/blob/master/README.md)
-
-  In this tutorial, you will learn the following concepts:
-
+* Build AntidoteDB using [Docker](https://docs.docker.com/install/) (see [AntidoteDB Docker Deployment](deployment/docker.md))
+* Clone the [Todolist application](https://github.com/shraddhabarke/antidote-todolist) from github and follow the setup instructions from README.
 * Model data of Java application in AntidoteDB
 * Update and read CRDT objects in AntidoteDB 
 * Run two AntidoteDB nodes concurrently 
@@ -44,7 +41,7 @@ connect antidote2 8087
 
 We now have an AntidoteDB cluster with two replicas!
 
-![](.gitbook/assets/replicas.jpeg)
+![](../.gitbook/assets/replicas.jpeg)
 
 ## Running the Application
 
@@ -127,7 +124,7 @@ public BoardId createBoard(AntidoteClient client, String name) {
 }
 ```
 
-![](.gitbook/assets/app.png)
+![](../.gitbook/assets/app.png)
 
 Each of the columns on the board can have one or more than one task. A task has information such as title and its due date.
 
