@@ -2,16 +2,18 @@
 
 Antidote is configured to expose metrics to [Prometheus](https://prometheus.io/) via the [antidote_stats module](https://github.com/AntidoteDB/antidote_stats).
 
-Follow the steps to start one Antidote node and view the metrics.
+Follow the steps in the `README` of the `antidote_stats` module to start the required monitoring services:
 
 ```bash
 cd monitoring
 docker-compose up -d
 ```
 
-This starts one Antidote node, a prometheus server and a graphana database.
+This starts a prometheus server and a grafana database.
 If the containers started with no problems, open
-`http://localhost:9090/targets` in a web-browser. You will see targets antidote and prometheus.
+`http://localhost:9090/targets` in a web-browser. 
+You will see the targets prometheus is configured to monitor.
+To change or add additional Antidote nodes, follow the necessesary steps in the README to [add targets to the prometheus configuration](https://github.com/AntidoteDB/antidote_stats).
 
 To shutdown containers:
 `docker-compose down`
@@ -19,10 +21,10 @@ To shutdown containers:
 
 # Grafana GUI
 
-To view the monitoring data of antidote, the Grafana Dashboard.
-With default configuration open `http://localhost:3000` and log in with user `admin` and password `admin`.
+To view the monitoring data of antidote, open the Grafana Dashboard.
+With default the configuration open the URL `http://localhost:3000` and log in with user `admin` and password `admin`.
 
-The monitoring provides information for the following metrics: Antidote API, Antidote Ring Structure, Antidote Log Size (disk usage), Memory, I/O, CPU, Erlang Internals
+The monitoring system provides information for the following metrics: Antidote API, Antidote Ring Structure, Antidote Log Size (disk usage), Memory, I/O, CPU, and Erlang Internals.
 
 ### Antidote API
 
