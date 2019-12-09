@@ -24,6 +24,11 @@ For compiling from source code, clone the repository and use the make command.
 The compiled basho_bench script is found at the path inside the Benchmark directory: 
 - _build/default/bin/basho_bench
 
+## Setup Antidote
+
+Before you can run a benchmark you have to set up an Antidote cluster, or have access to an existing Antidote cluster.  
+More information on how to deploy Antidote can be found at [AntidoteDB-documentation/deployment](https://github.com/AntidoteDB/AntidoteDB-documentation/tree/master/deployment).
+
 ## Usage
 
 You may use the
