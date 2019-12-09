@@ -56,8 +56,11 @@ To check for unusually active vnodes, the log sizes of every vnode is checked, t
 Additional host metrics are provided. These include memory usage, network I/O, CPU usage, and Erlang internal metrics.
 
 ![](../.gitbook/assets/mon_memory.png)
+
 ![](../.gitbook/assets/mon_io.png)
+
 ![](../.gitbook/assets/mon_cpu.png)
+
 ![](../.gitbook/assets/mon_internals.png)
 
 
