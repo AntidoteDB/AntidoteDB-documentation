@@ -1,4 +1,4 @@
-# Setup
+# Examples
 
 There are various ways to use kubernetes.
 
