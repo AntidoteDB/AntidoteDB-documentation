@@ -95,4 +95,4 @@ The callbacks for `driver:run/4` may be:
 
 ### Custom Driver with State
 
-An example for a custom driver with state, made also for Antidote, is [FMKe](https://github.com/goncalotomas/FMKe). It is based on [lasp-bench](https://github.com/lasp-lang/lasp-bench), which is the former basho_bench. The principle for creating a custom driver stays the same.
+An example for a custom driver with state, also has an example for Antidote, is [FMKe](https://github.com/goncalotomas/FMKe). It is based on [lasp-bench](https://github.com/lasp-lang/lasp-bench), which is the successor for basho_bench. The principle for creating a custom driver stays the same.
