@@ -20,19 +20,19 @@ The configuration file can by default be found here:
 - linux: ~/.minikube/config/config.json
 - windows: C:/user/\<userX\>/.minikube/config/config.json  
 
-Configure minikube to make it more suitable for testing to deploy Antidote:
+Configure minikube to make it more suitable for testing to deploy Antidote. The following flags might be useful:
 - insecure registries: start minikube with the insecure-registry flag, e.g.: `minikube start --insecure-registry="hostname:port"`.
 - give minikube more cpus and memory to use, by using the flags --cpus, --memory, e.g.: `minikube start --cpus 6 --memory 8192`. You can also edit the configuration file to add these flags to every `minikube start` command.
 
 Note that you have to restart (delete, start) minikube to make these configuration changes valid. `minikube stop` is not sufficient.
 
-## Deployment
+## Deployment Schema: Example
 
 **Requirements:**
-- Kubernetes Version 1.16 and higher.
-- Antidote Version 0.2.0 and higher.
+- Kubernetes Version 1.16 and higher (The startup probe is only available for versions 1.16 and higher).
+- Antidote Version 0.2.0 and higher (This schema was tested for versions 0.2.0 and 0.2.2; refer to the example in the example section).
 
-In the deployment of Antidote on a Kubernetes-cluster we need the following Kubernetes objects:
+In this deployment schema for Antidote on a kubernetes-cluster we need the following Kubernetes objects:
 
 For the kubernetes objects that will define the antidote data center: 
 - [HeadlessService](#headlessService)
@@ -68,7 +68,7 @@ Here we will model each StatefulSet such that it consists of some pods, which ar
 First the StatefulSet might be applied to the cluster, then scaled to the specified number of replicas and then we migth create a job, that calls the antidote api to create a data center from all pods contained in this *StatefulSet*.
 
 Properties of the *StatefulSet*:
-- The **name** of the *StatefulSet* in the **metadata**.
+- The **name** of the *StatefulSet* in **metadata**.
 - The **serviceName** field has to be the **name** specified in the *HeadlessService*.
 - The number of **replicas** generated and governed by this *StatefulSet*
 - The **selector** should select all pods of antidote instances that you would like to have in one data center.
@@ -77,7 +77,7 @@ Properties of the *StatefulSet*:
 
 #### ContainerTemplate
 In the **template** spec you may define how the pods, that are part of the *StatefulSet* shall look like.
-In our case we want it to contain an antidote container.
+In our case we want it to contain at least the antidote container.
 
 Properties of the *template*:
 - Some **labels** to make sure we can select the here created pods somewhere else (e.g. in the selector of the *StatefulSet* above).
@@ -86,8 +86,8 @@ Properties of the *template*:
 	- A container with the **image** of an antidote release.
 	- Open some **ports** that are needed from the antidote image internally (which means inside the kubernetes cluster they will then be accessible).
 	- Some **resources** that the pod may use. Make sure to give the pod access to enough resources, so antidote may work properly.
-	- A **startupProbe**. The one specified in the [example](example_yaml_templates/statefulSet.yaml) checks wether the port at antidote-pb is opened for tcp or not. For the probe to be successful the port has to be opened for two consecutive calls. After 60 failures the pod will be marked as not ready and the probe will not be continued.   
-	- Some **env** variables. In the [example](example_yaml_templates/statefulSet.yaml) the NODE_NAME is set to "antidote@$(POD_IP)". That will allow the creation of an antidote data center, as it allows for cluster internal communication between antidote instances (Note that each pod can be reached through its ip inside the cluster).
+	- A **startupProbe**. The one specified in the [example](example_yaml_templates/statefulSet.yaml) checks wether the port at antidote-pb is opened for tcp or not. For the probe to be successful, the port has to be opened for two consecutive calls. After 60 failures the pod will be marked as 'not ready' and the probe will not be continued.   
+	- Some **env** variables. In the [example](example_yaml_templates/statefulSet.yaml) the NODE_NAME is set to "antidote@$(POD_IP)". That will allow the creation of an antidote data center, as it allows for cluster internal communication between antidote instances (Note that each pod can be reached through its ip, but only inside the cluster).
 	- Some **volumeMounts** for data. In the [example](example_yaml_templates/statefulSet.yaml) the **mountPath** is specified as "/antidote-data" which is the same as in the produced antidote docker images from [docker-antidote](https://github.com/AntidoteDB/docker-antidote).
 
 #### VolumeClaimTemplates
@@ -108,16 +108,16 @@ Properties of the *pod-service*:
 - The **port** as such, that it is mapped to the port antidote uses for its protocol buffer interface, to actually allow communication through this port.
 - The **selector** that selects the specified pod this service shall govern. As a statefulset will provide every pod with the label: **statefulset.kubernetes.io/pod-name** as its pod name. We may use this here to select the correct pod.
 
-**Note:** We have to know the names of each pod to create this services.
+**Note:** We have to know the names of each pod to create this services. Therefore they have to be created beforehand.
 
 ### StorageClass
 The storage class provided in the example template [storageClass.yaml](example_yaml_templates/storageClass.yaml) does only provide local storage since minikube operates on only a single node.
-If you have a cluster consiting of several nodes, you should read up on the local persistent volume ga mentioned above.
+If you have a cluster consiting of several nodes, you should read up on the 'local persistent volume ga' mentioned above.
 
 ### Jobs
 
-For now, we need two different kinds of jobs. One, to create an antidote data center. Two, to connect different antidote datacenters.
-In the example this is done with the *peterzel/antidote-connect* container from [here](https://github.com/peterzeller/antidote-connect), which uses the [antidote-go-client](https://github.com/AntidoteDB/antidote-go-client).
+For now, we need two different kinds of jobs. First, to create an antidote data center. Second, to connect different antidote datacenters.
+In the example this is done with the *peterzel/antidote-connect* container from [here](https://github.com/peterzeller/antidote-connect), which uses the [antidote-go-client](https://github.com/AntidoteDB/antidote-go-client) (If a problem occurs, where the container start fails with code 132, you might try to build the container from [this](https://github.com/Yannick-W/antidote-connect-legacy) repository).
 
 Basically the container is run with different arguments:
 - to create a data center: `--createDC "datacenter:port" "antidote@node1", ..., "antidote@nodeN"`
