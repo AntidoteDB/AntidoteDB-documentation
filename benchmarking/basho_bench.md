@@ -75,7 +75,7 @@ It is also possible to write a custom driver, that specifies different operation
 
 ### Custom Driver
 
-As specified in [basho_bench_doc](https://docs.riak.com/riak/kv/latest/using/performance/benchmarking/index.html#custom-driver), the driver has to implement following interface:
+As specified in [basho_bench_doc](https://docs.riak.com/riak/kv/latest/using/performance/benchmarking/index.html#custom-driver), the driver has to implement the following interface:
 
 ``` Erlang
 % Create the worker
@@ -95,4 +95,4 @@ The callbacks for `driver:run/4` may be:
 
 ### Custom Driver with State
 
-An example for a custom driver with state, also has an example for Antidote, is [FMKe](https://github.com/goncalotomas/FMKe). It is based on [lasp-bench](https://github.com/lasp-lang/lasp-bench), which is the successor for basho_bench. The principle for creating a custom driver stays the same.
+An example for a custom driver with state is [FMKe](https://github.com/goncalotomas/FMKe). It is based on [lasp-bench](https://github.com/lasp-lang/lasp-bench), which is an alternative fork from basho_bench. The principle for creating a custom driver is the same.
