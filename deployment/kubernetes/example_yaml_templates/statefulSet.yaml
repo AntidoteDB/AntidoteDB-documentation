@@ -1,0 +1,92 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: antidote
+  labels:
+    app: antidote
+    type: antidote-deployment
+spec:
+  serviceName: antidote
+  replicas: 1
+  selector:
+    matchLabels:
+      app: antidote
+      type: instance
+  template:
+    metadata:
+      labels:
+        app: antidote
+        type: instance
+    spec:
+      terminationGracePeriodSeconds: 10
+      
+      containers:
+      - name: antidote
+        image: antidotedb/antidote:latest # for example
+        imagePullPolicy: Always #
+        
+        ports:
+        - containerPort: 4369
+          name: erlang-port
+        - containerPort: 3001
+          name: metrics-port
+        - containerPort: 8085
+          name: antidote-1
+        - containerPort: 8086
+          name: antidote-2
+        - containerPort: 8099
+          name: antidote-3
+        - containerPort: 9100
+          name: antidote-rpc
+        - containerPort: 8087
+          name: antidote-pb
+          
+        startupProbe:
+          tcpSocket:
+            port: antidote-pb
+          periodSeconds: 10
+          successThreshold: 2
+          failureThreshold: 60
+          
+        resources:
+          limits:
+            cpu: 1500m
+            memory: 1500Mi
+          requests:
+            cpu: 1500m
+            memory: 1000Mi
+            
+# cleanup??
+#        lifecycle:
+#          preStop:
+#            exec:
+#              command: 
+#              - /bin/sh
+#              - -c
+#              - nodetool drain  # how in cassandra
+
+        env:
+          - name: POD_IP
+            valueFrom:
+              fieldRef:
+                fieldPath: status.podIP
+          - name: NODE_NAME
+            value: antidote@$(POD_IP)
+
+        volumeMounts:
+        - name: antidote-data
+          mountPath: /antidote-data
+          
+  volumeClaimTemplates:
+  - metadata:
+      name: antidote-data
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      storageClassName: local-storage-class
+      resources:
+        requests:
+          storage: 1000Mi
+          
+
+
+
