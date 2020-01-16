@@ -117,7 +117,7 @@ If you have a cluster consiting of several nodes, you should read up on the 'loc
 ### Jobs
 
 For now, we need two different kinds of jobs. First, to create an antidote data center. Second, to connect different antidote datacenters.
-In the example this is done with the *peterzel/antidote-connect* container from [here](https://github.com/peterzeller/antidote-connect), which uses the [antidote-go-client](https://github.com/AntidoteDB/antidote-go-client) (If a problem occurs, where the container start fails with code 132, you might try to build the container from [this](https://github.com/Yannick-W/antidote-connect-legacy) repository).
+In the example this is done with the *peterzel/antidote-connect* container from [here](https://github.com/peterzeller/antidote-connect), which uses the [antidote-go-client](https://github.com/AntidoteDB/antidote-go-client).
 
 Basically the container is run with different arguments:
 - to create a data center: `--createDC "datacenter:port" "antidote@node1", ..., "antidote@nodeN"`
