@@ -91,6 +91,8 @@ Test Logging
 
 To log messages in a test suite, use the function `ct:log`. If a message should be visibile in the printed log (e.g. in travis), then `ct:pal` or `ct:print` can be used.
 
+All other logging messages (`io`, `logger`) end up in the `ct` HTML summary, see the generated `logs/index.html` file and navigate to the test cases you want to see the logs of.
+
 
 Utility Functions
 -----------------
