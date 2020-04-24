@@ -1,9 +1,9 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: createdc-for-${antidote_datacenter}
+  name: createdc-for-antidote
   labels:
-    app: ${antidote_datacenter}
+    app: antidote
     type: antidote-util-tmp
 spec:
   ttlSecondsAfterFinished: 5
@@ -13,6 +13,6 @@ spec:
       - name: antidote-connect
         image: peterzel/antidote-connect
         imagePullPolicy: Always
-        args: ["--createDc", "${antidote_first_node}", ${antidote_nodes}] ## first_node with format hostname:port and list of antidote nodes format antidote@hostname
+        args: ["--createDc", "antidote-0.antidote:8087", "antidote@antidote-0.antidote", "antidote@antidote-1.antidote"]
       restartPolicy: Never
   backoffLimit: 4
