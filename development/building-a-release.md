@@ -35,19 +35,20 @@ where variable expansion can be used in the `Val` part.
 
 Example:
 
-```shell script
-# start antidote with a unified directory, set logging level to warning
-# assume NODE_NAME, ROOT_PREFIX_DIR (`antidote/`), P1, P2, P3, P4, and P5 OS variables 
-# have been exported before
-# modify appliation configurations (see sys.config.src and other .config files for options)
-# logging level and all ports
-# disable certification checks for concurrent transactions
-./antidote foreground \
--kernel logging_level warning \
--riak_core handoff_port $P1 \
--ranch pb_port $P2 \
--antidote pubsub_port $P3 \
--antidote logreader_port $P4 \
--antidote_stats metrics_port $P5 \
--antidote txn_check false
-```
+
+
+	# start antidote with a unified directory, set logging level to warning
+	# assume NODE_NAME, ROOT_PREFIX_DIR (`antidote/`), P1, P2, P3, P4, and P5 OS variables 
+	# have been exported before
+	# modify appliation configurations (see sys.config.src and other .config files for options)
+	# logging level and all ports
+	# disable certification checks for concurrent transactions
+	./antidote foreground \
+	-kernel logging_level warning \
+	-riak_core handoff_port $P1 \
+	-ranch pb_port $P2 \
+	-antidote pubsub_port $P3 \
+	-antidote logreader_port $P4 \
+	-antidote_stats metrics_port $P5 \
+	-antidote txn_check false
+

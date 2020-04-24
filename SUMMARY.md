@@ -32,7 +32,7 @@
 * [Local Docker Setup](deployment/docker.md)
 * [Docker Compose Setups](deployment/docker-compose-setups.md)
 * [Docker Swarm](deployment/dockerswarm.md)
-* [Kubernetes](deployment/kubernetes.md)
+* [Kubernetes](deployment/kubernetes/deployment.md)
 
 ## Monitoring
 

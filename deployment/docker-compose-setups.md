@@ -4,7 +4,9 @@ description: Docker-compose setups for creating AntidoteDB clusters
 
 # Deploying Antidote with Docker-Compose
 
-There are multiple examples on how to deploy Antidote with compose files in the [Antidote Docker repository](https://github.com/AntidoteDB/docker-antidote/compose-files).
+There are multiple examples on how to deploy Antidote with compose files in the [Antidote Docker repository](https://github.com/AntidoteDB/docker-antidote/tree/master/compose-files).
+
+The cluster and data center management is done with [Antidote Connect](https://github.com/AntidoteDB/antidote-connect).
 
 Some notes:
 
