@@ -39,7 +39,7 @@ For the kubernetes objects that will define the antidote data center:
 - [StatefulSet](#statefulSet)
     - [ContainerTemplate](#containerTemplate)
     - [VolumeClaimTemplates](#volumeClaimTemplates)
-- [Services](#services) for exposing all instances/pods
+- [Service](#services) for exposing the datacenter to outside of the cluster
 
 And some jobs:
 - [Jobs](#jobs)  
@@ -51,7 +51,8 @@ The following stated **properties** are mostly only basic properties needed to d
 ### HeadlessService
 
 A [StatefulSet](https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/) needs to define a [HeadlessService](https://kubernetes.io/docs/concepts/services-networking/service/#headless-services) to work properly.  
-An example how a yaml specification may look like can be found here: [headlessService.yaml](example_yaml_templates/headlessService.yaml).  
+An example how a yaml specification may look like can be found here: [headlessService.yaml](example_yaml_templates/headlessService.yaml).
+The HeadlessService provides the StatefulSet's Pods with a Subdomain. Each Pod may be accessible inside the cluster through this domain.
 
 Properties of the *HeadlessService*:
 - The **clusterIP** field is always specified as **None**.
@@ -84,10 +85,10 @@ Properties of the *template*:
 - A **terminationGracePeriodSeconds** to make kubernetes wait the specified time before shutting down a pod, to allow a implemented graceful termination of each pod.
 - Some **containers:**
 	- A container with the **image** of an antidote release.
-	- Open some **ports** that are needed from the antidote image internally (which means inside the kubernetes cluster they will then be accessible).
+	- Open some **ports** that are needed from the antidote image internally (which means inside the kubernetes cluster they will then be accessible; generally only the protobuffer port at 8087 is needed).
 	- Some **resources** that the pod may use. Make sure to give the pod access to enough resources, so antidote may work properly.
 	- A **startupProbe**. The one specified in the [example](example_yaml_templates/statefulSet.yaml) checks wether the port at antidote-pb is opened for tcp or not. For the probe to be successful, the port has to be opened for two consecutive calls. After 60 failures the pod will be marked as 'not ready' and the probe will not be continued.   
-	- Some **env** variables. In the [example](example_yaml_templates/statefulSet.yaml) the NODE_NAME is set to "antidote@$(POD_IP)". That will allow the creation of an antidote data center, as it allows for cluster internal communication between antidote instances (Note that each pod can be reached through its ip, but only inside the cluster).
+	- Some **env** variables. In the [example](example_yaml_templates/statefulSet.yaml) the NODE_NAME is set to "antidote@$(HOST_NAME).serviceName" (where serviceName is the specified name of the headlessService as in the spec-field 'serviceName'). That will allow the creation of an antidote data center, as it allows for cluster internal communication between antidote instances.
 	- Some **volumeMounts** for data. In the [example](example_yaml_templates/statefulSet.yaml) the **mountPath** is specified as "/antidote-data" which is the same as in the produced antidote docker images from [docker-antidote](https://github.com/AntidoteDB/docker-antidote).
 
 #### VolumeClaimTemplates
@@ -98,17 +99,7 @@ This can be done in kubernetes through [LocalPersistentVolumes](https://kubernet
 The solution provided in the link above in general needs an administrator to manually provide this storage. An provisioner can be configured such that each of this provided storage can be accessed through a volumeClaimTemplate again. This means there is no change to the *StatefulSet*.yaml but the **storageClassName** in the claim template.
 
 ### Services
-Accessing each instance of a StatefulSet will be done through a [Service](https://kubernetes.io/docs/concepts/services-networking/service/) with a *LoadBalancer*-property. If used in combination with a cloud provider that supports this feature, this services will be provided with an **ExternalIPAdress**, which will allow for traffic from outside the cluster.  
-The service that is used to expose a specific pod to the outside net will be called **pod-service** from here on.
-
-Properties of the *pod-service*:
-- A **name**. For example the name of the pod it exposes.
-- Some **labels** to identify this service if needed.
-- The **type** specified as **LoadBalancer** to allow a cloud provider to expose it to the outside net.
-- The **port** as such, that it is mapped to the port antidote uses for its protocol buffer interface, to actually allow communication through this port.
-- The **selector** that selects the specified pod this service shall govern. As a statefulset will provide every pod with the label: **statefulset.kubernetes.io/pod-name** as its pod name. We may use this here to select the correct pod.
-
-**Note:** We have to know the names of each pod to create this services. Therefore they have to be created beforehand.
+Accessing a data center is done with a [Service](https://kubernetes.io/docs/concepts/services-networking/service/), that has a *LoadBalancer*-property. If used in combination with a cloud provider that supports this feature, this services will be provided with an **ExternalIPAdress**, which will allow for traffic from outside the cluster. Also this Service is provided a ClusterIpAddress which is cluster internal. This may other applications to access the data center inside the cluster more easily. 
 
 ### StorageClass
 The storage class provided in the example template [storageClass.yaml](example_yaml_templates/storageClass.yaml) does only provide local storage since minikube operates on only a single node.
@@ -122,9 +113,9 @@ In the example this is done with the *peterzel/antidote-connect* container from 
 Basically the container is run with different arguments:
 - to create a data center: `--createDC "datacenter:port" "antidote@node1", ..., "antidote@nodeN"`
 - to connect different data centers: `--connectDcs "datacenter1:port", ..., "datacenterN:port"`
-As you can see in the example for [createDC.yaml](example_yaml_templates/createDC.yaml) and [connectDCs.yaml](example_yaml_templates/connectDCs.yaml)
+As you can see in the example for [createDC.yaml](example_yaml_templates/createDC.yaml) and [connectDCs.yaml](example_yaml_templates/connectDCs.yaml.template)
 
 **Note:** 
-- Here "datacenter:port" refers to the "pod_ip:antidote-pb-port" of one random pod from the *StatefulSet* that represents this specific antidote data center.
-- And "antidote@node" refers to "antidote@pod_ip" (or "antidote@hostname" if dns is provided).
-- We also have to know these identifiers, therefore these pods have to be set up and be ready before. We then create the specific yaml for the intended job and apply it to the cluster. There the job-object will create a pod, which will run the specified container and its arguments.
+- Here "datacenter:port" refers to the "pod_ip:antidote-pb-port" or "hostname.subdomain:antidote-pb-port" of the **first** pod from the *StatefulSet* that will then also be the manager-node for each data center and their underlying erlang clusters. (It is sufficient to access a node with hostname.subdomain, since the job should be inside the same cluster and inside the same namespace as the StatefulSet)
+- And "antidote@node" refers to "antidote@pod_ip" (or "antidote@hostname.subdomain" if dns is provided).
+
