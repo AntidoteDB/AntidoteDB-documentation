@@ -119,3 +119,33 @@ As you can see in the example for [createDC.yaml](example_yaml_templates/createD
 - Here "datacenter:port" refers to the "pod_ip:antidote-pb-port" or "hostname.subdomain:antidote-pb-port" of the **first** pod from the *StatefulSet* that will then also be the manager-node for each data center and their underlying erlang clusters. (It is sufficient to access a node with hostname.subdomain, since the job should be inside the same cluster and inside the same namespace as the StatefulSet)
 - And "antidote@node" refers to "antidote@pod_ip" (or "antidote@hostname.subdomain" if dns is provided).
 
+## Deployment on Google Cloud: Example
+
+When you run the above example on Google Cloud Platform (GCP) and you are using Google Kubernetes Engine (GKE), you do not have to install or manage kubernetes by yourself. Google handles it for you 😉
+
+However, you have to add and modify some files to run successfully.
+
+After creating a google kubernetes cluster, using the following command to check if you have a storage class (by default, Google will created it automatically):
+```
+kubectl get storageclasses
+```
+1. If you already have a storage class, you only need to change `storageClassName` field in the [statefulSet.yaml](example_yaml_templates/statefulSet.yaml) file:
+```
+storageClassName: <your_google_storage_class_name> 
+```
+2. If you do not have any storage class or you want to create your own, edit the [StorageClass.yaml](example_yaml_templates/storageClass.yaml) file:
+```
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
+metadata:
+  name: mystorageclass
+provisioner: kubernetes.io/gce-pd 
+parameters:
+  type: pd-standard
+  fstype: ext4
+volumeBindingMode: WaitForFirstConsumer
+```
+and then change `storageClassName` field in the [statefulSet.yaml](example_yaml_templates/statefulSet.yaml) file:
+```
+storageClassName: mystorageclass
+```
