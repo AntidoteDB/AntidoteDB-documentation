@@ -67,6 +67,7 @@
 * [Building a Release](development/building-a-release.md)
 * [Testing](development/testing.md)
 * [Contributing](development/contributing.md)
+* [Archived Works](development/archived-works.md)
 
 
 ## Release Notes
