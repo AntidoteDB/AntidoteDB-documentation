@@ -26,7 +26,7 @@ In this guide, you will accomplish the following steps:
 
 > If you prefer to skip the steps to build the cluster manually, there is a Docker Compose file available at: https://github.com/mweberUKL/antidote\_dev/tree/master/docker\_dcs.
 
-* Download the deployment setup for a 2 data center single shard setup ([docker-compose file](https://github.com/AntidoteDB/docker-antidote/tree/v0.2.1/compose-files/dc2n1))
+* Download the deployment setup for a 2 data center single shard setup ([docker-compose file](https://github.com/AntidoteDB/docker-antidote/blob/master/compose-files/dc2n1))
 
 * Run `docker-compose up`
 
